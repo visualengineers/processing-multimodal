@@ -1,3 +1,12 @@
+tts/data/*
+!tts/data/.gitkeep
+
+whisperlocal/data/*
+!whisperlocal/data/.gitkeep
+
+stt/data/*
+!stt/data/.gitkeep
+
 .DS_Store
 applet
 application.linux-arm64
