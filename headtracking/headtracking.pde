@@ -11,6 +11,7 @@ void setup() {
 
   String[] cameras = Capture.list();
 
+  // https://processing.org/reference/libraries/video/Capture.html
   if (cameras.length == 0) {
     println("There are no cameras available for capture.");
     exit();
