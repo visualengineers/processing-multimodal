@@ -9,7 +9,7 @@ Minim minim;
 AudioInput in;
 AudioRecorder recorder;
 
-String whisperServer = "http://141.56.132.18:5002";
+String whisperServer = "http://itv21.informatik.htw-dresden.de:5002";
 String dataFile = "data.wav";
 String info = "Press r to start and stop recording!";
 List<String> recognized = new ArrayList<String>();
@@ -88,7 +88,7 @@ void whisperSTT(String file, final List<String> res) {
         // We can choose different recognition  models: tiny, base, small, medium, large 
         utility.addFormField("model", "base");
         // We can recognize different languages, English (en) performs best, German (de) worse
-        utility.addFormField("language", "en");
+        utility.addFormField("language", "de");
         List<String> response = utility.finish();
         for (String s : response)
           res.add(s);
