@@ -81,6 +81,7 @@ void whisperSTT(String file, final List<String> res) {
   new Thread() {
     public void run() {
       try {
+        info = "Wait for recognition ... ";
         // See the MultipartUtility class in a seperate file for information
         MultipartUtility utility = new MultipartUtility(url, "UTF-8");
         utility.addHeaderField("Content-Type", "audio/mpeg");
