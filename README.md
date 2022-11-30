@@ -15,3 +15,7 @@ https://github.com/openai/whisper
 ## Whisperlocal
 
 https://github.com/openai/whisper
+
+## User Interface
+
+Small project with classes for classic GUI controls without external libraries.
