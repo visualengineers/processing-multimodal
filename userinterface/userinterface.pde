@@ -39,7 +39,6 @@ void setup() {
 }
 
 void draw() {
-  clear();
   background(0);
   manager.render();
 

@@ -28,7 +28,7 @@ class LineDiagram extends Control {
     text(df2.format(model.max/2), x + width + 4, y + (height / 2) + (fonts.TEXTSIZESMALL/2));
     text("0", x + width + 4, y + height);
 
-    if (width > 400) {
+    if (width > 500) {
       for (int i=0; i < model.xCoordLabels.length - 1; i++) {
         text(model.xStart + i + 1, model.xCoordLabels[i], y + height + fonts.TEXTSIZESMALL + 2);
       }

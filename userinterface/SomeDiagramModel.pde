@@ -6,7 +6,7 @@ class SomeDiagramModel extends DiagramModel {
 
     for(int i=0;i<50;i++) {
       float r = random(model.getMaxNumber());
-      data.add(new Double(r));
+      data.add(Double.valueOf(r));
     }
 
     xStart = 0;
@@ -24,13 +24,13 @@ class SomeDiagramModel extends DiagramModel {
     xCoordLabels = new float[numEntries];
     xLabels = new String[numEntries];
     int counter = 0;
-    for (Double entry : data) {
-      xCoordLabels[counter] = counter;
+    for (Double entry : data) {      
       float xo = map(counter, 0, numEntries, 0, width-10);
       float yo = height - map(entry.intValue(), 0, max, 0, height-2);
       xCoords[counter] = x + xo + 9;
       yCoords[counter] = y + yo + 1;
       xLabels[counter] = df2.format(entry.floatValue()) + " (" + counter + ")";
+      xCoordLabels[counter] = xCoords[counter];
       counter++;      
     }
     
