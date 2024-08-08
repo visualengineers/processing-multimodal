@@ -21,10 +21,11 @@ class MultipartUtility {
         this.charset = charset;
          
         // creates a unique boundary based on time stamp
-        boundary = "===" + System.currentTimeMillis() + "===";
+        boundary = Long.toHexString( System.currentTimeMillis() );
          
         URL url = new URL(requestURL);
         httpConn = (HttpURLConnection) url.openConnection();
+        httpConn.setRequestMethod("POST");
         httpConn.setUseCaches(false);
         httpConn.setDoOutput(true); // indicates POST method
         httpConn.setDoInput(true);
@@ -85,7 +86,7 @@ class MultipartUtility {
         inputStream.close();
          
         writer.append(LINE_FEED);
-        writer.flush();    
+        writer.flush();
     }
  
     /**
@@ -115,7 +116,7 @@ class MultipartUtility {
         int status = httpConn.getResponseCode();
         if (status == HttpURLConnection.HTTP_OK) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    httpConn.getInputStream()));
+                    httpConn.getInputStream(), "utf-8"));
             String line = null;
             while ((line = reader.readLine()) != null) {
                 response.add(line);

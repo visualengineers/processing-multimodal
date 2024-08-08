@@ -14,6 +14,8 @@ String dataFile = "data.wav";
 String info = "Press r to start and stop recording!";
 List<String> recognized = new ArrayList<String>();
 boolean recorded = false;
+boolean shouldRecord = false;
+int stopDelay;
 
 void setup() {
   size(800, 600);
@@ -39,19 +41,31 @@ void draw() {
     line(i, 150 + in.left.get(i)*50, i+1, 150 + in.left.get(i+1)*50);
     line(i, 250 + in.right.get(i)*50, i+1, 250 + in.right.get(i+1)*50);
   }
+  
+  if(in.left.level() > 0.025 && !shouldRecord) {
+    shouldRecord = true;
+    stopDelay = 50;
+    toggleRecording();
+  }
+  if(in.left.level() < 0.01 && shouldRecord) {    
+    stopDelay--;
+    if(stopDelay < 0) {
+      shouldRecord = false;
+      toggleRecording();
+    }
+  }
 
   textSize(18);
   text(String.join("\n", recognized), 5, 20);
   text(info, 5, 300);
 }
 
-void keyReleased() {
-  if (recorder == null && key == 'r') {
+void toggleRecording() {
+  if (recorder == null) {
     recorded = false;
     if (recorder == null) recorder = minim.createRecorder(in, dataPath(dataFile));
   }
-  if ( !recorded && key == 'r' )
-  {
+  if (!recorded) {
     // to indicate that you want to start or stop capturing audio data,
     // you must callstartRecording() and stopRecording() on the AudioRecorder object.
     // You can start and stop as many times as you like, the audio data will
@@ -64,17 +78,20 @@ void keyReleased() {
       info = "End recording";
       recorder = null;
       whisperSTT(dataPath(dataFile), recognized);
-    } else
-    {
+    } else {
       recorder.beginRecord();
       info = "Begin recording";
     }
   }
 }
 
+void keyReleased() {
+  if (key == 'r') toggleRecording();
+}
+
 void whisperSTT(String file, final List<String> res) {
   String url = whisperServer + "/whisper";
-  File binaryFile = new File(file);
+  File binaryFile = new File(file);  
 
   // We create a thread here in order to keep the program
   // from blocking while the request is sent to the server and is processed
@@ -84,7 +101,7 @@ void whisperSTT(String file, final List<String> res) {
         info = "Wait for recognition ... ";
         // See the MultipartUtility class in a seperate file for information
         MultipartUtility utility = new MultipartUtility(url, "UTF-8");
-        utility.addHeaderField("Content-Type", "audio/mpeg");
+        //utility.addHeaderField("Content-Type", "audio/mpeg");
         utility.addFilePart("uploaded_file", binaryFile);
         // We can choose different recognition  models: tiny, base, small, medium, large 
         utility.addFormField("model", "base");
@@ -93,6 +110,7 @@ void whisperSTT(String file, final List<String> res) {
         List<String> response = utility.finish();
         for (String s : response)
           res.add(s);
+        info = "Press r to start and stop recording!";
       }
       catch (IOException e) {
         e.printStackTrace();
