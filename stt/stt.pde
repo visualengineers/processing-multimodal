@@ -23,7 +23,7 @@ void setup() {
   minim = new Minim(this);
   // get a mono line-in: sample buffer length of 2048
   // default sample rate is 44100, default bit depth is 16
-  in = minim.getLineIn(Minim.MONO, 2048);
+  in = minim.getLineIn(Minim.MONO, 1024); // , 22050, 16);
 
   // create an AudioRecorder that will record from in to the filename specified.
   // the file will be located in the sketch's main folder.
@@ -90,7 +90,8 @@ void keyReleased() {
 }
 
 void whisperSTT(String file, final List<String> res) {
-  String url = whisperServer + "/whisper";
+  // String url = whisperServer + "/whisper";
+  String url = whisperServer + "/google";
   File binaryFile = new File(file);  
 
   // We create a thread here in order to keep the program
@@ -101,12 +102,11 @@ void whisperSTT(String file, final List<String> res) {
         info = "Wait for recognition ... ";
         // See the MultipartUtility class in a seperate file for information
         MultipartUtility utility = new MultipartUtility(url, "UTF-8");
-        //utility.addHeaderField("Content-Type", "audio/mpeg");
         utility.addFilePart("uploaded_file", binaryFile);
-        // We can choose different recognition  models: tiny, base, small, medium, large 
+        // For whisper we can choose different recognition  models: tiny, base, small, medium, large 
         utility.addFormField("model", "base");
-        // We can recognize different languages, English (en) performs best, German (de) worse
-        utility.addFormField("language", "de");
+        // For whisper we can recognize different languages, English (en) performs best, German (de) worse
+        utility.addFormField("language", "en");
         List<String> response = utility.finish();
         for (String s : response)
           res.add(s);
