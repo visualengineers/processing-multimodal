@@ -2,7 +2,9 @@ import gab.opencv.*;
 import processing.video.*;
 import java.awt.*;
 
+// Goto: Sketch > Library importieren > Video Processing for Processing
 Capture video;
+// Goto: Sketch > Library importieren > OpenCV
 OpenCV opencv;
 int leftOrRight = 0;
 

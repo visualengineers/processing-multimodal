@@ -5,6 +5,7 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
+// Goto: Sketch > Library importieren > Minim
 Minim minim;
 AudioInput in;
 AudioRecorder recorder;
