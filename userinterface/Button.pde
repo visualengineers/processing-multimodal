@@ -1,9 +1,14 @@
 class Button extends Control {
   String label;
+  Runnable action;
 
   public Button(String label, int x, int y, int width, int height) {
     super(x, y, width, height);
     this.label = label;
+  }
+  
+  public void registerAction(Runnable run) {
+    this.action = run;
   }
   
   public void render() {
@@ -26,6 +31,7 @@ class Button extends Control {
   }
 
   public void handleKeyPressed() {
+    if(this.focus) action.run();
   }
   
   public void handleMouseClicked() {

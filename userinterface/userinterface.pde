@@ -40,19 +40,12 @@ void setup() {
 
 void draw() {
   background(0);
-  manager.render();
-
   textFont(fonts.titleFont);
   fill(255);
   text("User Interface", padding, 40);
 }
 
-void mouseMoved() {
-  manager.handleMouseMoved();
-}
-
 void mouseClicked() {
-  manager.handleMouseClicked();
   if (manager.getActiveControlName()=="UPDATE") {
     model.setMaxNumber(parseInt(inputField.getText()));
     exampleModel.update();
@@ -62,7 +55,6 @@ void mouseClicked() {
 }
 
 void keyPressed() {
-  manager.handleKeyPressed();
   if (keyCode == ESC) {
     exit();
   }
