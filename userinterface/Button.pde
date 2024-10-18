@@ -31,9 +31,9 @@ class Button extends Control {
   }
 
   public void handleKeyPressed() {
-    if(this.focus) action.run();
   }
   
   public void handleMouseClicked() {
+    if(this.focus) action.run();
   }
 }

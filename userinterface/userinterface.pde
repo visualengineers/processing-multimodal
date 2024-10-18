@@ -23,6 +23,12 @@ void setup() {
   List<String> suggestions = new ArrayList<>(List.of( "Lorem", "Ipsum", "Sit", "Dolor", "Amet" ));
   
   Button updateButton = new Button("UPDATE", padding, 160, 100, 20);
+  updateButton.registerAction(() -> {
+    model.setMaxNumber(parseInt(inputField.getText()));
+    exampleModel.update();
+    diagModel.invalidate();
+    barModel.invalidate();
+  });
   inputField = new InputField(String.valueOf(model.getMaxNumber()), "MAXIMUM", padding, 200, 100, 20);
   InputFieldSuggestion suggestionInput = new InputFieldSuggestion("", "SUGGESTIONS WITH TAB KEY", padding, 260, 280, 12, suggestions);
   InputFieldTags tagInput = new InputFieldTags("", "TAGS WITH ENTER KEY", padding, 300, 280, 12, suggestions);
@@ -43,15 +49,6 @@ void draw() {
   textFont(fonts.titleFont);
   fill(255);
   text("User Interface", padding, 40);
-}
-
-void mouseClicked() {
-  if (manager.getActiveControlName()=="UPDATE") {
-    model.setMaxNumber(parseInt(inputField.getText()));
-    exampleModel.update();
-    diagModel.invalidate();
-    barModel.invalidate();
-  }
 }
 
 void keyPressed() {
